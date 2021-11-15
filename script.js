@@ -1,9 +1,14 @@
 let result;
 
 const main = document.getElementById("section");
+const placeholder = document.getElementById("placeholder");
 const form = document.getElementById("form");
 const search = document.getElementById("search");
 let address = "";
+
+function removeText() {
+  placeholder.style.display = "none";
+}
 
 function preload() {
   doFetch(result)
@@ -65,6 +70,7 @@ form.addEventListener("submit", (e) => {
   }
   console.log(address);
   preload();
+  removeText();
 });
 
 async function doFetch() {

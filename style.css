@@ -79,6 +79,11 @@ a:hover {
   color: var(--accent-color);
 }
 
+h1 {
+  align-items: center;
+  font-family: inherit;
+  color: var(--accent-color);
+}
 .nft {
   display: flex;
   flex-direction: row;

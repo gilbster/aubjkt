@@ -10,7 +10,7 @@
   <body>
     <header>
       <h2>
-        <a href="#" onclick="getMovies(API_URL);">aubergine gallery</a>
+        <a href="#" onclick="window.location.reload();">aubergine gallery</a>
       </h2>
       <form id="form">
         <label for="search">Enter your Tezos Address</label>
@@ -24,7 +24,10 @@
       </form>
     </header>
 
-    <main id="main"><div id="section"></div></main>
+    <main id="main">
+      <div id="placeholder"><h1>Please enter a Tezos Address</h1></div>
+      <div id="section"></div>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>
