@@ -6,9 +6,6 @@ const form = document.getElementById("form");
 const search = document.getElementById("search");
 let address = "";
 
-function removeText() {
-  placeholder.style.display = "none";
-}
 
 function preload() {
   doFetch(result)
@@ -56,21 +53,6 @@ async function fetchGraphQL(operationsDoc, operationName, variables) {
 
   return await result.json();
 }
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  address = search.value;
-  if (address && address !== "") {
-    showArt();
-
-    search.value = "";
-  } else {
-    window.location.reload();
-  }
-  console.log(address);
-  preload();
-  removeText();
-});
 
 async function doFetch() {
   const { errors, data } = await fetchGraphQL(query, "creatorGallery", {
