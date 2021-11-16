@@ -19,30 +19,29 @@ function preload() {
 }
 
 const query = `
-  query creatorGallery($address: String!) {
-    hic_et_nunc_token(where: {creator: {address: {_eq: $address}}, supply: {_gt: 0}}, order_by: {id: desc}) {
-      id
-      artifact_uri
-      display_uri
-      thumbnail_uri
-      timestamp
-      mime
-      title
-      description
-      supply
-      token_tags {
-        tag {
-          tag
+query MyQry($tags: [String!]) {
+  hic_et_nunc_tag: tag(where: {name: {_in: $tags}}) {
+    tag_tokens(where: {token: {supply: {_gt: 0}}}) {
+      token {
+        id
+        mime
+        thumbnail_uri
+        display_uri
+        artifact_uri
+        royalties
+        title
+        supply
+        timestamp
+        creator {
+          name
+          address
         }
-      }
-      swaps(where: {status: {_eq: "0"}}, order_by: {price: asc}) {
-        amount
-        amount_left
-        creator_id
-        price
       }
     }
   }
+}
+{"tags": ["aubergine", "aubjkt4aubjkt"]}
+
 `;
 
 async function fetchGraphQL(operationsDoc, operationName, variables) {
