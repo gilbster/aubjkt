@@ -6,7 +6,6 @@ const form = document.getElementById("form");
 const search = document.getElementById("search");
 let address = "";
 
-
 function preload() {
   doFetch(result)
     .then((result) => showArt(result))
@@ -16,29 +15,66 @@ function preload() {
 }
 
 const query = `
-query MyQry($tags: [String!]) {
-  hic_et_nunc_tag: tag(where: {name: {_in: $tags}}) {
-    tag_tokens(where: {token: {supply: {_gt: 0}}}) {
-      token {
-        id
-        mime
-        thumbnail_uri
-        display_uri
-        artifact_uri
-        royalties
-        title
-        supply
-        timestamp
-        creator {
-          name
-          address
+query Objkt($id: bigint!) {
+    hic_et_nunc_token_by_pk(id: $id) {
+      artifact_uri
+      creator {
+        address
+        name
+      }
+      description
+      display_uri
+      id
+      level
+      mime
+      royalties
+      supply
+      thumbnail_uri
+      metadata
+      timestamp
+      title
+      token_tags(order_by: {id: asc}) {
+        tag {
+          tag
         }
       }
+      swaps(order_by: {id: asc}) {
+        price
+        timestamp
+        status
+        amount
+        amount_left
+        creator {
+          address
+          name
+        }
+      }
+      trades(order_by: {timestamp: asc}) {
+        amount
+        buyer {
+          address
+          name
+        }
+        seller {
+          address
+          name
+        }
+        swap {
+          price
+        }
+        timestamp
+      }
+      token_holders(where: {quantity: {_gt: "0"}}, order_by: {id: asc}) {
+        quantity
+        holder {
+          address
+          name
+        }
+      }
+      hdao_balance
+      extra
     }
   }
-}
-{"tags": ["aubergine", "aubjkt4aubjkt"]}
-
 `;
 
 async function fetchGraphQL(operationsDoc, operationName, variables) {
@@ -55,8 +91,8 @@ async function fetchGraphQL(operationsDoc, operationName, variables) {
 }
 
 async function doFetch() {
-  const { errors, data } = await fetchGraphQL(query, "creatorGallery", {
-    address: address,
+  const { errors, data } = await fetchGraphQL(query, "Objkt", {
+    tags: ["aubergine", "aubjkt4aubjkt"],
   });
   if (errors) {
     console.error(errors);
