@@ -1,5 +1,0 @@
-[[redirects]]
-  from = "/*"
-  to = "https://www.fxhash.xyz/u/:splat"
-  status = 301
-  force = true
