@@ -1,7 +1,0 @@
-# http and https need separate rules if you don’t force_ssl!
-http://aubjkt.com/* https://www.fxhash.xyz/u/:splat 301!
-https:///aubjkt.com/* https://www.fxhash.xyz/u/:splat 301!
-
-
-# other URLS might proxy or redirect offsite
-https://test.aubjkt.com/*  https://www.fxhash.xyz/u/:splat 200
